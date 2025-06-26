@@ -1,3 +1,5 @@
-mongoose.connect('mongodb://localhost:27017/myappdb')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({ name: {type:String, required:[true, 'You need a username.']}, email: { type: String, unique: true }, password_hash: {type:String, required:[true, 'You need a password.']},});
+
+module.exports = userSchema

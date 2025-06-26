@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"node gateway/gateway.js\" \"node auth/auth.js\" \"node users/users.js\" \"node bids/bids.js\" \"node auctions/auctions.js\""
+    "start": "concurrently \"node gateway/gateway.js\" \"node auth/auth.js\" \"node bids/bids.js\" \"node auctions/auctions.js\""
   },
   "keywords": [],
   "author": "",
