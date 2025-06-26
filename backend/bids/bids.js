@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const bidSchema = require('../models/bids');
 const auctionSchema = require('../models/bids');
 
-app.use(cors()); // ← autorise les requêtes crossorigin
+app.use(cors());
 app.use(express.json());
 
 const conn = mongoose.createConnection('mongodb://127.0.0.1:27017/auctiondb');
@@ -42,7 +42,7 @@ app.post('/bids', async (req, res) => { // Create a new bid
 
 app.get("/bids/auction/:auction_id", async (req, res) => { // Search bids per auction
   try{
-    const bidAuctionId = req.params.id;
+    const bidAuctionId = req.params.auction_id;
     const bids = await Bid.find({auction_id : bidAuctionId})
     if (bids.length > 0){
       res.json(bid);
@@ -50,13 +50,13 @@ app.get("/bids/auction/:auction_id", async (req, res) => { // Search bids per au
       res.status(404).json({error:"This auction doesn't have any bid yet."})
     }
   }catch(err){
-    res.status(400).json({error: "Error while fetching the auction bid data."})
+    res.status(404).json({error: "This auction doesn't exist."})
   }
 });
 
 app.get("/bids/user/:user_id", async (req, res) => { // Search bids per user
   try{
-    const bidUserId = req.params.id;
+    const bidUserId = req.params.user_id;
     const bids = await Bid.find({user_id : bidUserId})
     if (bids.length > 0){
       res.json(bids);
@@ -64,7 +64,7 @@ app.get("/bids/user/:user_id", async (req, res) => { // Search bids per user
       res.status(404).json({error:"This user didn't submit any bid yet."})
     }
   }catch(err){
-    res.status(400).json({error: "Error while fetching the user bid data."})
+    res.status(404).json({error: "This user doesn't exist."})
   }
 });
 
