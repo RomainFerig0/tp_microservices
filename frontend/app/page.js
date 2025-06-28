@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from 'next/link';
 
-const API_URL = "http://localhost:4000"; // Update if needed
+const API_URL = "http://localhost:3001"; // Update if needed
 
 // ---- Auth Functions ----
 
 async function register({ name, email, password_hash }) {
-  const response = await fetch(`${API_URL}/register`, {
+  const response = await fetch(`${API_URL}/api/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password_hash }),
@@ -24,7 +24,7 @@ async function register({ name, email, password_hash }) {
 }
 
 async function login({ username, password }) {
-  const response = await fetch(`${API_URL}/login`, {
+  const response = await fetch(`${API_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),

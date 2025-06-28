@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from 'next/link';
 
-const API_URL = "http://localhost:4002"; // Make sure this matches your backend
+const API_URL = "http://localhost:3001"; // Make sure this matches your backend
 
 export default function AuctionsPage() {
   const [auctions, setAuctions] = useState([]);
@@ -20,7 +20,7 @@ export default function AuctionsPage() {
   // Fetch all auctions
   const fetchAuctions = async () => {
     try {
-      const res = await fetch(`${API_URL}/auctions`);
+      const res = await fetch(`${API_URL}/api/auctions/auctions`);
       const data = await res.json();
       setAuctions(data);
     } catch (err) {
@@ -36,7 +36,7 @@ export default function AuctionsPage() {
   const createAuction = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${API_URL}/auctions`, {
+      const res = await fetch(`${API_URL}/api/auctions/auctions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -57,7 +57,7 @@ export default function AuctionsPage() {
   // Get auction by ID
   const fetchAuctionById = async () => {
     try {
-      const res = await fetch(`${API_URL}/auctions/${selectedId}`);
+      const res = await fetch(`${API_URL}/api/auctions/auctions/${selectedId}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setSingleAuction(data);
@@ -70,7 +70,7 @@ export default function AuctionsPage() {
   // Delete auction
   const deleteAuction = async (id) => {
     try {
-      const res = await fetch(`${API_URL}/auctions/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/api/auctions/auctions/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setMessage("✅ Auction deleted");

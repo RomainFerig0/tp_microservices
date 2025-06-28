@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 
-const API_URL = "http://localhost:4001";
+const API_URL = "http://localhost:3001";
 
 export default function BidsPage() {
   const [newBid, setNewBid] = useState({ auction_id: "", user_id: "", amount: "" });
@@ -18,7 +18,7 @@ export default function BidsPage() {
     e.preventDefault();
     setMessage("");
     try {
-      const res = await fetch(`${API_URL}/bids`, {
+      const res = await fetch(`${API_URL}/api/bids/bids`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -41,7 +41,7 @@ export default function BidsPage() {
     setMessage("");
     setBidsByAuction([]);
     try {
-      const res = await fetch(`${API_URL}/bids/auction/${auctionId}`);
+      const res = await fetch(`${API_URL}/api/bids/bids/auction/${auctionId}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to fetch bids");
       setBidsByAuction(data);
@@ -55,7 +55,7 @@ export default function BidsPage() {
     setMessage("");
     setBidsByUser([]);
     try {
-      const res = await fetch(`${API_URL}/bids/user/${userId}`);
+      const res = await fetch(`${API_URL}/api/bids/bids/user/${userId}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to fetch bids");
       setBidsByUser(data);
